@@ -8,7 +8,9 @@ if(process.argv.length < 3){
     return;
 }
 const pathToFixFiles = process.argv[2];
-exec('which exiftool', function callback(error, stdout, stderr) {
+var isWin = /^win/.test(process.platform);
+const which = isWin ? 'where' : 'which';
+exec(which + ' exiftool', function callback(error, stdout, stderr) {
     if (stdout && !stderr) {
         fs.readdir(pathToFixFiles, (err, files) => {
             if (err) {
