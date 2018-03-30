@@ -19,7 +19,7 @@ exec(which + ' exiftool', function callback(error, stdout, stderr) {
             }
             files.forEach(file => {
                 exec('exiftool "-creationdate" ' + pathToFixFiles + file, function callback(error, stdout, stderr) {
-                    stdout = stdout.replace('\n', '');
+                    stdout = !isWin ? stdout.replace('\n', '') : stdout.replace('\r\n', '');
                     console.log(stderr);
                     result = parse.exec(stdout);
                     if (result) {
